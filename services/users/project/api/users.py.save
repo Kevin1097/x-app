@@ -1,0 +1,15 @@
+# services/users/project/api/users.p
+   3
+   4 from flask import Blueprint, jsonify
+   5
+   6
+•  7 users_blueprint = Blueprint('users', __name__)
+   8
+   9
+  10 @users_blueprint.route('/users/ping', methods=['GET'])
+• 11 def ping_pong():
+  12     return jsonify({
+  13     ¦   'status': 'success',
+  14     ¦   'message': 'pong!'
+  15     })
+
