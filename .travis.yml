@@ -8,9 +8,12 @@ DOCKER_COMPOSE_VERSION: 1.23.2
 
 before_install:
 - sudo rm /usr/local/bin/docker-compose
-- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-- sudo chmod +x docker-compose
-- sudo mv docker-compose /usr/local/bin
+#- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+#- sudo chmod +x docker-compose
+- sudo mv /usr/local/bin/docker-compose /usr/bin/docker-compose
+#- sudo mv docker-compose /usr/local/bin
+- sudo chmod +x /usr/bin/docker-compose
 
 before_script:
 - docker-compose -f docker-compose-dev.yml up -d --build
