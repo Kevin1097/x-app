@@ -11,6 +11,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 db = SQLAlchemy()  # nuevo
 toolbar = DebugToolbarExtension()
 
+
 def create_app(script_info=None):
     # instanciado la app
     app = Flask(__name__)
