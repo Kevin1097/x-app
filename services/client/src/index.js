@@ -1,12 +1,20 @@
 import React, { Component } from 'react';  // nuevo
 import ReactDOM from 'react-dom';
+import axios from 'axios';
  
  
 // nuevo
 class App extends Component {
   constructor() {
-	super();
-  }
+		super();
+		this.getUser();
+	}
+	//nuevo
+	getUser(){
+		axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
+		.then((res) => { console.log(res.data.data); })
+		.catch((err) => { console.log(err); });
+	}
   render() {
 	return (
   	<section className="section">
