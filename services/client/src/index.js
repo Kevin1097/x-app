@@ -10,9 +10,12 @@ class App extends Component {
   constructor() {
 		super();
 		this.state = {
-			users: []
+			users: [],
+			username: '',
+			email: '',
 		};
 		this.addUser = this.addUser.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 	};
 	//nuevo
 	componentDidMount() {
@@ -20,14 +23,32 @@ class App extends Component {
 	};
 	
 	getUser(){
-		axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
+		axios.get(`http://localhost/users`)
+		//axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
 		.then((res) => { this.setState({users: res.data.data.users});})
 		.catch((err) => { console.log(err); });
-	}
+	};
 	addUser(event) {
 		event.preventDefault();
-		console.log('sanity check!');
+		const data = {
+      username: this.state.username,
+      email: this.state.email
+		};
+		axios.get(`http://localhost/users`, data)
+		//axios.post(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`,data)
+    .then((res)=>{
+      this.getUser();  // nuevo
+      this.setState({username: '', email:'' })  //nuevo
+    })
+		.catch((err) => { console.log(err); });
+		console.log(this.state)
 	};
+
+	handleChange(event){
+    const obj = {};
+    obj[event.target.name] = event.target.value;
+    this.setState(obj);
+};
 
   render() {
 	return (
@@ -38,9 +59,15 @@ class App extends Component {
           	<br/>
           	<h1 className="title is-1">Todos los Usuarios</h1>
           	<hr/><br/>
-						<AddUser addUser={this.addUser}/> {/* nuevo */}
-						{/* new */}
-						<UsersList users={this.state.users}/>
+						<AddUser 
+                username={this.state.username}
+                email={this.state.email}
+                addUser={this.addUser}
+                handleChange={this.handleChange}
+              />
+              <br></br>{/* nuevo */}
+              {/* nuevo */}
+							<UsersList users={this.state.users}/>
         	</div>
       	</div>
     	</div>
