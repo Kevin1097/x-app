@@ -34,7 +34,7 @@ class App extends Component {
       username: this.state.username,
       email: this.state.email
 		};
-		axios.get(`http://localhost/users`, data)
+		axios.post(`http://localhost/users`, data)
 		//axios.post(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`,data)
     .then((res)=>{
       this.getUser();  // nuevo
