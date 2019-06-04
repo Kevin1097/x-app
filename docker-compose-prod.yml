@@ -36,3 +36,28 @@ services:
       - 80:80
     depends_on:
       - users
+      - client
+
+  client:
+    container_name: client
+    build:
+      context: ./services/client
+      dockerfile: Dockerfile-prod
+      args:
+        - NODE_ENV=production
+        #- REACT_APP_USERS_SERVICE_URL=http://localhost
+        - REACT_APP_USERS_SERVICE_URL=${REACT_APP_USERS_SERVICE_URL}
+    ports:
+      - 3007:80
+    depends_on:
+      - users
+  
+  portainer:
+    image:  portainer/portainer:latest
+    container_name: portainer
+    command: --no-auth
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /srv/docker/portainer:/data
+    ports:
+      - 12345:9000

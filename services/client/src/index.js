@@ -23,8 +23,8 @@ class App extends Component {
 	};
 	
 	getUser(){
-		axios.get(`http://localhost/users`)
-		//axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
+		//axios.get(`http://localhost/users`)
+		axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
 		.then((res) => { this.setState({users: res.data.data.users});})
 		.catch((err) => { console.log(err); });
 	};
@@ -34,8 +34,8 @@ class App extends Component {
       username: this.state.username,
       email: this.state.email
 		};
-		axios.post(`http://localhost/users`, data)
-		//axios.post(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`,data)
+		//axios.post(`http://localhost/users`, data)
+		axios.post(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`,data)
     .then((res)=>{
       this.getUser();  // nuevo
       this.setState({username: '', email:'' })  //nuevo
